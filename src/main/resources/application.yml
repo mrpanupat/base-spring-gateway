@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: example_route
+          uri: https://example.org
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 500
+                redis-rate-limiter.burstCapacity: 1000
+                redis-rate-limiter.requestedTokens: 1
+
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+    baggage:
+      correlation:
+        fields: X-Correlation-Id
+      remote-fields: X-Correlation-Id
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+logging:
+  pattern:
+    console: "%style{%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}{blue}|2|%highlight{%level}|${spring.application.name:-}|%style{%X{X-B3-TraceId}%X{traceId},%X{X-B3-SpanId}%X{spanId},%X{X-Span-Export},%X{X-Correlation-Id}}{blink,red}|${PID:-}|%style{%thread}{bright,Magenta}|%c{1}|%style{%logger{40}}{bright,yellow}|%m%n"
