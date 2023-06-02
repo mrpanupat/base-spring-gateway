@@ -1,0 +1,11 @@
+#actuator
+management:
+  endpoints:
+    web:
+      path-mapping:
+        info: /info
+        health: /health
+        prometheus: /prometheus
+        metrics: /actuator/metrics
+      exposure:
+        include: info, health, prometheus, metrics

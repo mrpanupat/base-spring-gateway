@@ -25,6 +25,16 @@ management:
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+  endpoints:
+    web:
+      path-mapping:
+        info: /info
+        health: /health
+        prometheus: /prometheus
+        metrics: /actuator/metrics
+      exposure:
+        include: info, health, prometheus, metrics
+
 logging:
   pattern:
     console: "%style{%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}{blue}|2|%highlight{%level}|${spring.application.name:-}|%style{%X{X-B3-TraceId}%X{traceId},%X{X-B3-SpanId}%X{spanId},%X{X-Span-Export},%X{X-Correlation-Id}}{blink,red}|${PID:-}|%style{%thread}{bright,Magenta}|%c{1}|%style{%logger{40}}{bright,yellow}|%m%n"

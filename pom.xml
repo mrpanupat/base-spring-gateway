@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.mrpanupat</groupId>
     <artifactId>demo.gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-cloud-gateway-micrometer-otel</name>
-    <description>Demo project for Spring Cloud Gateway 3.0 with micrometer otel</description>
+    <name>spring-cloud-gateway-micrometer</name>
+    <description>Demo project for Spring Cloud Gateway 3.0 with micrometer</description>
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.1</spring-cloud.version>
@@ -38,7 +38,7 @@
 
         <dependency>
             <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -102,6 +102,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
